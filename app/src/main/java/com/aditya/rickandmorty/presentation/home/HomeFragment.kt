@@ -2,14 +2,23 @@ package com.aditya.rickandmorty.presentation.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.aditya.rickandmorty.R
 import com.aditya.rickandmorty.databinding.FragmentDetailsBinding
 import com.aditya.rickandmorty.databinding.FragmentHomeBinding
 import com.aditya.rickandmorty.presentation.CharactersAdapter
+import com.aditya.rickandmorty.presentation.PagingLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -30,14 +39,51 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding?.apply {
-            listRv.adapter = charactersAdapter
+            listRv.adapter = charactersAdapter?.withLoadStateHeaderAndFooter(
+                header = PagingLoadStateAdapter { charactersAdapter?.retry() },
+                footer = PagingLoadStateAdapter { charactersAdapter?.retry() },
+            )
         }
 
-        viewModel.allCharacters.observe(viewLifecycleOwner) {
-            charactersAdapter?.differ?.submitList(it)
-        }
+        setUpObservers()
+    }
 
-        viewModel.getAllCharacters()
+    private fun setUpObservers() {
+        resetPagination()
+
+        lifecycleScope.launch {
+            charactersAdapter?.loadStateFlow?.collectLatest {
+                binding?.apply {
+                    val showLoading = it.refresh is LoadState.Loading
+                    loadCv.isVisible = showLoading
+                    listRv.isVisible = !showLoading
+
+                    val showEmpty =
+                        it.refresh is LoadState.NotLoading && charactersAdapter != null && charactersAdapter?.itemCount == 0
+                    noItemCv.isVisible = showEmpty
+
+                    val showError = it.refresh is LoadState.Error
+                    if (showError) {
+                        errorCv.isVisible = true
+                        retryBtn.setOnClickListener { charactersAdapter?.retry() }
+                    } else {
+                        errorCv.isGone = true
+                    }
+                    listRv.isVisible = !showLoading && !showError
+                }
+            }
+        }
+    }
+
+    private fun resetPagination() {
+        binding?.listRv?.scrollToPosition(0)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.characters.collectLatest {
+                    charactersAdapter?.submitData(it)
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
