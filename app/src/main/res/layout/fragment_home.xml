@@ -38,10 +38,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_mid"
-                android:layout_marginTop="@dimen/margin_xx_small"
+                android:layout_marginTop="@dimen/margin_x_small"
                 android:layout_marginBottom="@dimen/margin_x_small"
                 android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                app:cursorColor="@color/white"
                 app:endIconMode="clear_text"
+                app:boxStrokeColor="@color/search_text_field_stroke"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title_tv">
 
@@ -51,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_person_search"
                     android:drawablePadding="@dimen/margin_xx_small"
+                    android:textColor="@color/white"
                     android:drawableTint="@color/white"
                     android:hint="@string/search_characters"
                     android:maxLines="1" />

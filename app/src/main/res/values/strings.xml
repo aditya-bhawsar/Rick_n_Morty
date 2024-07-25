@@ -4,4 +4,10 @@
     <string name="characters">Characters</string>
     <string name="species">Species: %1$s</string>
     <string name="status">Status: %1$s</string>
+    <string name="species_str">Species</string>
+    <string name="status_str">Status</string>
+    <string name="gender">Gender</string>
+    <string name="type">Type</string>
+    <string name="unknown">Unknown</string>
+    <string name="none">None</string>
 </resources>

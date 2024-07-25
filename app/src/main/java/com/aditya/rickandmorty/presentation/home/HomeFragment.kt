@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.aditya.rickandmorty.R
+import com.aditya.rickandmorty.databinding.FragmentDetailsBinding
 import com.aditya.rickandmorty.databinding.FragmentHomeBinding
 import com.aditya.rickandmorty.presentation.CharactersAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +25,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     ) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
-        charactersAdapter = CharactersAdapter()
+        charactersAdapter = CharactersAdapter { character ->
+            findNavController().navigate(HomeFragmentDirections.actionHomeToDetails(character))
+        }
 
         binding?.apply {
             listRv.adapter = charactersAdapter
