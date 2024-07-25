@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/home"
+    android:id="@+id/navigation">
+
+    <fragment android:id="@+id/home"
+        android:name="com.aditya.rickandmorty.presentation.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_search"
+            app:destination="@id/search" />
+        <action
+            android:id="@+id/action_home_to_details"
+            app:destination="@id/details" />
+    </fragment>
+
+    <fragment android:id="@+id/search"
+        android:name="com.aditya.rickandmorty.presentation.search.SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_details"
+            app:destination="@id/details" />
+    </fragment>
+
+    <fragment android:id="@+id/details"
+        android:name="com.aditya.rickandmorty.presentation.details.DetailsFragment"
+        tools:layout="@layout/fragment_details"
+        />
+</navigation>
