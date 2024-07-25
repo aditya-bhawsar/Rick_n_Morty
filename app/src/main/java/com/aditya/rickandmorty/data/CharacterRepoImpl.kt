@@ -4,9 +4,14 @@ import com.aditya.rickandmorty.domain.Character
 import com.aditya.rickandmorty.domain.ICharacterRepo
 import com.aditya.rickandmorty.utils.Result
 
-class CharacterRepoImpl (charactersApi: CharactersApi): ICharacterRepo {
-    override fun getAllCharacters(): Result<List<Character>> {
-        return Result.Success(emptyList())
+class CharacterRepoImpl (private val charactersApi: CharactersApi): ICharacterRepo {
+    override suspend fun getAllCharacters(): Result<List<Character>> {
+        val result = charactersApi.getAllCharacters()
+        return if (result.isSuccessful) {
+            Result.Success(result.body()?.results ?: emptyList())
+        } else {
+            Result.Error()
+        }
     }
 
     override fun getCharacterByID(): Result<Character> {
