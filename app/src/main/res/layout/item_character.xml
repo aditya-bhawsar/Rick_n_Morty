@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_xx_small"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/margin_x_small">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/character_iv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@mipmap/ic_launcher_round" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/name_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_x_small"
+                android:layout_marginBottom="@dimen/margin_xx_small"
+                android:textColor="@color/blue_accent"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintBottom_toTopOf="@id/species_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/character_iv"
+                app:layout_constraintTop_toTopOf="@id/character_iv"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Morty" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/species_tv"
+                android:layout_width="0dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_x_small"
+                android:textSize="@dimen/text_x_small"
+                app:layout_constraintBottom_toTopOf="@id/status_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/character_iv"
+                app:layout_constraintTop_toBottomOf="@id/name_tv"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:layout_editor_absoluteY="8dp"
+                tools:text="Species: Human" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/status_tv"
+                android:ellipsize="end"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_marginHorizontal="@dimen/margin_x_small"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_x_small"
+                app:layout_constraintBottom_toBottomOf="@id/character_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/character_iv"
+                app:layout_constraintTop_toBottomOf="@id/species_tv"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Status: Alive" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

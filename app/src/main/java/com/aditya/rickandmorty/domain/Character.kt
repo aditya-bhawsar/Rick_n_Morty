@@ -10,3 +10,7 @@ data class Character(
     val gender: String = "",
     val url: String = "",
 )
+
+data class CharacterResponse(
+    val results: List<Character>
+)
