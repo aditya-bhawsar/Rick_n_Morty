@@ -7,7 +7,7 @@ import com.aditya.rickandmorty.domain.GetAllCharactersUsecase
 
 class CharactersPagingDataSource(
     private val usecase: GetAllCharactersUsecase,
-    private val searchQuery : String = ""
+    private val searchQuery: String = "",
 ) : PagingSource<Int, Character>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val pageNumber = params.key ?: 1
@@ -25,7 +25,5 @@ class CharactersPagingDataSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
-        return null
-    }
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? = null
 }
