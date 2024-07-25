@@ -6,6 +6,8 @@
     <dimen name="margin_x_small">12dp</dimen>
     <dimen name="margin_xx_small">8dp</dimen>
     <dimen name="text_mid">20sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    <dimen name="text_x_large">28sp</dimen>
     <dimen name="text_small">16sp</dimen>
     <dimen name="text_x_small">12sp</dimen>
 </resources>

@@ -27,5 +27,9 @@
     <fragment android:id="@+id/details"
         android:name="com.aditya.rickandmorty.presentation.details.DetailsFragment"
         tools:layout="@layout/fragment_details"
-        />
+        >
+        <argument
+            android:name="character"
+            app:argType="com.aditya.rickandmorty.domain.Character" />
+    </fragment>
 </navigation>

@@ -11,7 +11,7 @@ import com.aditya.rickandmorty.R
 import com.aditya.rickandmorty.databinding.ItemCharacterBinding
 import com.aditya.rickandmorty.domain.Character
 
-class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
+class CharactersAdapter (private val itemClickListener: (Character) -> Unit) : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
     private val characterCallback: DiffUtil.ItemCallback<Character> =
         object : DiffUtil.ItemCallback<Character>() {
             override fun areItemsTheSame(
@@ -54,6 +54,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
             binding.apply {
+                root.setOnClickListener { itemClickListener(character) }
                 characterIv.load(character.image){
                     transformations(CircleCropTransformation())
                     placeholder(R.mipmap.ic_launcher_round)
