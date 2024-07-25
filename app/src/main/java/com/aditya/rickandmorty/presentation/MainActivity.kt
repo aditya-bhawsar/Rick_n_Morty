@@ -1,9 +1,10 @@
-package com.aditya.rickandmorty
+package com.aditya.rickandmorty.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
+import com.aditya.rickandmorty.R
 import com.aditya.rickandmorty.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +17,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
     }
 }
