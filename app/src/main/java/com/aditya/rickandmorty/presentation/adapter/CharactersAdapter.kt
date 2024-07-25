@@ -1,4 +1,4 @@
-package com.aditya.rickandmorty.presentation
+package com.aditya.rickandmorty.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

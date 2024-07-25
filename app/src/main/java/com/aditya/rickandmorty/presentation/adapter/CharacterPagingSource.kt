@@ -1,4 +1,4 @@
-package com.aditya.rickandmorty.presentation
+package com.aditya.rickandmorty.presentation.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
