@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -46,6 +49,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         setUpObservers()
+
+        binding?.searchEt?.doAfterTextChanged {
+            resetPagination(it.toString())
+        }
+
     }
 
     private fun setUpObservers() {
@@ -69,17 +77,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     } else {
                         errorCv.isGone = true
                     }
-                    listRv.isVisible = !showLoading && !showError
+                    listRv.isVisible = !showLoading && !showError && !showEmpty
                 }
             }
         }
     }
 
-    private fun resetPagination() {
+    private fun resetPagination(searchQuery: String = "") {
         binding?.listRv?.scrollToPosition(0)
+        viewModel.createPaginator(searchQuery)
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.characters.collectLatest {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.characters?.collectLatest {
                     charactersAdapter?.submitData(it)
                 }
             }

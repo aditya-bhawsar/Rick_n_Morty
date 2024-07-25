@@ -25,8 +25,14 @@ class HomeViewModel @Inject constructor(
     private val getAllCharactersUsecase: GetAllCharactersUsecase,
 ): ViewModel() {
 
-    val characters: Flow<PagingData<Character>> =
-        Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { CharactersPagingDataSource(usecase = getAllCharactersUsecase) }
+    var characters: Flow<PagingData<Character>>? = null
+
+    fun createPaginator(searchQuery: String = "") {
+        characters = Pager(config = PagingConfig(pageSize = 20, enablePlaceholders = false),
+            pagingSourceFactory = { CharactersPagingDataSource(
+                usecase = getAllCharactersUsecase,
+                searchQuery = searchQuery
+            ) }
         ).flow.cachedIn(viewModelScope)
+    }
 }
