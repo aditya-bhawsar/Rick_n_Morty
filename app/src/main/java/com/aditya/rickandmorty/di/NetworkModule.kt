@@ -1,6 +1,7 @@
 package com.aditya.rickandmorty.di
 
 import com.aditya.rickandmorty.BuildConfig
+import com.aditya.rickandmorty.data.CharactersApi
 import com.aditya.rickandmorty.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -18,12 +19,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val builder: OkHttpClient.Builder =
-            OkHttpClient.Builder()
+            OkHttpClient
+                .Builder()
                 .connectTimeout(Constants.Network.TIMEOUT_LIMIT.toLong(), TimeUnit.SECONDS)
                 .readTimeout(Constants.Network.TIMEOUT_LIMIT.toLong(), TimeUnit.SECONDS)
         if (BuildConfig.DEBUG) {
@@ -39,21 +40,22 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson {
-        val gsonBuilder = GsonBuilder()
-        return gsonBuilder.create()
-    }
+    fun provideGson(): Gson = GsonBuilder().create()
 
     @Provides
     @Singleton
     fun provideRetrofit(
         client: OkHttpClient,
         gson: Gson,
-    ): Retrofit {
-        return Retrofit.Builder()
+    ): Retrofit =
+        Retrofit
+            .Builder()
             .client(client)
             .baseUrl(Constants.Network.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-    }
+
+    @Provides
+    @Singleton
+    fun providesCharactersApi(retrofit: Retrofit): CharactersApi = retrofit.create(CharactersApi::class.java)
 }
