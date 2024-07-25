@@ -14,11 +14,7 @@ class CharacterRepoImpl (private val charactersApi: CharactersApi): ICharacterRe
         }
     }
 
-    override fun getCharacterByID(): Result<Character> {
-        return Result.Success(Character(id = 0))
-    }
-
-    override fun getCharactersBySearch(): Result<List<Character>> {
+    override suspend fun getCharactersBySearch(): Result<List<Character>> {
         return Result.Success(emptyList())
     }
 }
