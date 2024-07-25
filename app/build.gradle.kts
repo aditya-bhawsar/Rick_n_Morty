@@ -84,6 +84,10 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:2.6.0")
 
+    // Paging 3
+    implementation("androidx.paging:paging-runtime:3.3.1")
+    implementation("androidx.paging:paging-common:3.3.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
